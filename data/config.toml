@@ -1,0 +1,121 @@
+[datastore.ambient_shiga]
+class = "AmbientStore"
+description = "滋賀邸"
+data.d1 = "shiga.living.temperature"
+data.d2 = "shiga.living.humidity"
+data.d3 = "shiga.external.temperature"
+data.d4 = "shiga.external.humidity"
+data.d5 = "shiga.mother_living.temperature"
+data.d6 = "shiga.mother_living.humidity"
+data.d7 = "shiga.mother_bedroom.temperature"
+data.d8 = "shiga.mother_bedroom.humidity"
+
+[datastore.ambient_tokyo]
+class = "AmbientStore"
+description = "東京宅"
+data.d1 = "tokyo.living.temperature"
+data.d2 = "tokyo.living.humidity"
+data.d3 = "tokyo.external.temperature"
+data.d4 = "tokyo.external.humidity"
+data.d7 = "tokyo.mother_bedroom.temperature"
+data.d8 = "tokyo.mother_bedroom.humidity"
+
+[datastore.ambient_hub]
+class = "AmbientStore"
+description = "ハブ"
+data.d1 = "shiga.pressure"
+data.d2 = "shiga.temperature"
+data.d3 = "shiga.humidity"
+data.d4 = "shiga.power"
+data.d5 = "tokyo.pressure"
+data.d6 = "tokyo.temperature"
+data.d7 = "tokyo.humidity"
+data.d8 = "tokyo.power"
+
+[datastore.hinoki_hub]
+class = "AmbientStore"
+description = "ハブ"
+data.d1 = "tokyo.pressure"
+data.d2 = "tokyo.temperature"
+data.d3 = "tokyo.humidity"
+data.d4 = "tokyo.power"
+data.d5 = "shiga.pressure"
+data.d6 = "shiga.temperature"
+data.d7 = "shiga.humidity"
+data.d8 = "shiga.power"
+
+[datastore.hinoki_tokyo]
+class = "AmbientStore"
+description = "東京宅"
+data.d1 = "tokyo.living.temperature"
+data.d2 = "tokyo.living.humidity"
+data.d3 = "tokyo.external.temperature"
+data.d4 = "tokyo.external.humidity"
+data.d7 = "tokyo.mother_bedroom.temperature"
+data.d8 = "tokyo.mother_bedroom.humidity"
+
+[datastore.hinoki_shiga]
+class = "AmbientStore"
+description = "滋賀邸"
+data.d1 = "shiga.living.temperature"
+data.d2 = "shiga.living.humidity"
+data.d3 = "shiga.external.temperature"
+data.d4 = "shiga.external.humidity"
+data.d5 = "shiga.mother_living.temperature"
+data.d6 = "shiga.mother_living.humidity"
+data.d7 = "shiga.mother_bedroom.temperature"
+data.d8 = "shiga.mother_bedroom.humidity"
+
+[sensor.shiga_living]
+class = "SwitchbotTH"
+ble.macaddr = "F4:98:41:C0:54:C7"
+description = "リビング"
+data.temperature = "shiga.living.temperature"
+data.humidity = "shiga.living.humidity"
+
+[sensor.shiga_external]
+class = "SwitchbotTH"
+ble.macaddr = "D5:3F:69:C5:47:07"
+description = "外部"
+data.temperature = "shiga.external.temperature"
+data.humidity = "shiga.external.humidity"
+
+[sensor.shiga_mother_living]
+class = "SwitchbotTH"
+ble.macaddr = "E4:FA:33:7C:E8:9E"
+description = "母屋居間"
+data.temperature = "shiga.mother_living.temperature"
+data.humidity = "shiga.mother_living.humidity"
+
+[sensor.shiga_mother_bedroom]
+class = "SwitchbotTH"
+ble.macaddr = "E3:F1:06:D3:6C:F7"
+description = "母屋寝室"
+data.temperature = "shiga.mother_bedroom.temperature"
+data.humidity = "shiga.mother_bedroom.humidity"
+
+[sensor.shiga_plug_living]
+class = "SwitchbotPlug"
+ble.macaddr = "60:55:F9:2A:4A:6A"
+wifi.macaddr = "60:55:F9:2A:4A:68"
+description = "居間"
+data.power = "shiga.power"
+
+[sensor.shiga_bme280]
+class = "BoshBME280"
+i2c.bus = 1
+i2c.address = 0x76
+description = "滋賀ハブ"
+data.pressure = "shiga.pressure"
+data.temperature = "shiga.temperature"
+data.humidity = "shiga.humidity"
+
+[sensor.tokyo_bme280]
+disabled = true
+class = "BoshBME280"
+i2c.bus = 1
+i2c.address = 0x76
+description = "東京ハブ"
+data.pressure = "tokyo.pressure"
+data.temperature = "tokyo.temperature"
+data.humidity = "tokyo.humidity"
