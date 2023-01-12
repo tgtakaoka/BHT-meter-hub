@@ -18,7 +18,7 @@ class ScanDelegate(btle.DefaultDelegate):
         return self._sensors
 
     def handleDiscovery(self, dev, isNewDev, isNewData):
-        if dev.addr in self._sensors.keys():
+        if dev.addr in self._sensors:
             sensor = self._sensors[dev.addr]
             scanData = dev.getScanData()
             for (adtype, desc, payload) in scanData:
