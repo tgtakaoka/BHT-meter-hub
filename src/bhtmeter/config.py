@@ -34,7 +34,7 @@ class Config(object):
                 with open(file, "rb") as f:
                     config = tomli.load(f)
                     self._config = merge_toml(self._config, config)
-            except OSError as e:
+            except OSError:
                 print("configuration file {:s} not found".format(file), file=sys.stderr)
                 return False
         return True

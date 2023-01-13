@@ -9,10 +9,10 @@ from bhtmeter.sensor.ble_sensor import BLESensor
 def main():
     parser = argparse.ArgumentParser(prog="bhtmeter")
     parser.add_argument(
-        'config_files',
+        "config_files",
         metavar="<config_toml>",
         type=str,
-        nargs='+',
+        nargs="+",
         help="configuration files",
     )
     parser.add_argument("-v", "--verbose", help="increase output vervbosity", action="store_true")

@@ -21,7 +21,7 @@ class Sensor(object):
             class_obj = getattr(module, sensor_class)
             factory_method = getattr(class_obj, "create")
             return factory_method(name, config)
-        except ModuleNotFoundError as e:
+        except ModuleNotFoundError:
             pass
         raise ValueError("sensor.{:s} has unknown class {:s}".format(name, sensor_class))
 
