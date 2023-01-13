@@ -2,7 +2,7 @@ def merge_toml(dict1: dict, dict2: dict) -> dict:
     dict3 = {}
     for k1 in dict1:
         v1 = dict1.get(k1)
-        if not k1 in dict2:
+        if k1 not in dict2:
             dict3.update({k1: v1})
             continue
         v2 = dict2.pop(k1)

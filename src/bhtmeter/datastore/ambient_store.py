@@ -25,7 +25,7 @@ class AmbientStore(Datastore):
 
     def add_data(self, data: dict, line: dict, val, epoch_milli: int) -> None:
         self.add_data_message(line, val)
-        if not self in data:
+        if self not in data:
             data[self] = {"created": epoch_milli}
         tag = line["tag"]
         data[self][tag] = val
@@ -37,4 +37,4 @@ class AmbientStore(Datastore):
         if not self.do_store:
             return
         am = ambient.Ambient(self._channel_id, self._write_key)
-        r = am.send(data)
+        am.send(data)

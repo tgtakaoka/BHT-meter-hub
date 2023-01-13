@@ -29,8 +29,10 @@ dev = [
     "bumpver",
     "build",
     "deepdiff",
+    "flake8",
     "isort",
     "pip-tools",
+    "pyproject-flake8",
     "pytest",
     "setuptools",
     "twine",
@@ -55,6 +57,11 @@ push            = false
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+
+[tool.flake8]
+max-line-length = 99
+max-complexity = 10
+extend-ignore = ["E203", "W503"]
 
 [tool.isort]
 profile = "black"

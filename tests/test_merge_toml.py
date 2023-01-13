@@ -1,4 +1,3 @@
-import pytest
 from deepdiff import DeepDiff
 
 from bhtmeter.utils.merge_toml import merge_toml

@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 from bhtmeter.config import Config
 from bhtmeter.datastore import Datastore
@@ -64,6 +63,6 @@ def main():
                 sensor.display()
 
     for datastore in Datastore.datastores():
-        if not datastore in send_data:
+        if datastore not in send_data:
             continue
         datastore.send_data(send_data[datastore])

@@ -49,7 +49,7 @@ class Datastore(object):
             raise ValueError("datastore.{:s}.data must be table".format(name))
         for tag in lines:
             line = lines[tag]
-            if not line in Datastore._DATALINES:
+            if line not in Datastore._DATALINES:
                 Datastore._DATALINES[line] = []
             Datastore._DATALINES[line].append({"name": line, "datastore": self, "tag": tag})
         Datastore._DATASTORES.append(self)
