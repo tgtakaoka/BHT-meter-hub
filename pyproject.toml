@@ -16,7 +16,6 @@ classifiers = [
 ]
 keywords = ["barometer", "hygrometer", "thermometer", "bluetooth", "i2c"]
 dependencies = [
-    'ambient @ https://github.com/AmbientDataInc/ambient-python-lib/archive/refs/heads/master.zip',
     'bluepy',
     'pimoroni-bme280',
     'smbus2',
@@ -26,10 +25,13 @@ requires-python = ">=3.9.2"
 
 [project.optional-dependencies]
 dev = [
+    "bumpver",
+    "build",
     "deepdiff",
     "pip-tools",
     "pytest",
     "setuptools",
+    "twine",
 ]
 
 [project.urls]
@@ -37,3 +39,19 @@ Homepage = "https://github.com/tgtakaoka/python-bhtmeter"
 
 [project.scripts]
 bhtmeter = "bhtmeter.__main__:main"
+
+[tool.bumpver]
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["bhtmeter*", "ambient"]
+exclude = ["ambient.examples"]
