@@ -1,5 +1,6 @@
-from bluepy import btle
 import time
+
+from bluepy import btle
 
 from . import Sensor
 

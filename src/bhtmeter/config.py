@@ -1,5 +1,6 @@
 import os
 import sys
+
 import tomli
 
 from bhtmeter.datastore import Datastore

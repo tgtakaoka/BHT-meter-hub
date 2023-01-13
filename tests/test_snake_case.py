@@ -1,4 +1,5 @@
 import pytest
+
 from bhtmeter.utils.snake_case import snake_case
 
 

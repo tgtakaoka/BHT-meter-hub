@@ -29,6 +29,7 @@ dev = [
     "bumpver",
     "build",
     "deepdiff",
+    "isort",
     "pip-tools",
     "pytest",
     "setuptools",
@@ -54,6 +55,9 @@ push            = false
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+
+[tool.isort]
+profile = "black"
 
 [tool.setuptools.packages.find]
 where = ["src"]
