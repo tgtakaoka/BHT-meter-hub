@@ -27,15 +27,20 @@ requires-python = ">=3.9.2"
 dev = [
     "black",
     "bumpver",
-    "build",
-    "deepdiff",
     "flake8",
     "isort",
+    "pip>=22",
     "pip-tools",
     "pyproject-flake8",
-    "pytest",
-    "setuptools",
+    "setuptools>=65",
+]
+dist = [
+    "build",
     "twine",
+]
+test = [
+    "deepdiff",
+    "pytest",
 ]
 
 [project.urls]
