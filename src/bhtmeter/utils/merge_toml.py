@@ -22,4 +22,3 @@ def merge_toml(dict1: dict, dict2: dict) -> dict:
         dict3.update({k1: v1})
     dict3.update(dict2)
     return dict3
-
