@@ -27,7 +27,7 @@ class Config(object):
         self._config = {"args": args}
 
     def load(self) -> bool:
-        for file in self._args.config:
+        for file in self._args.config_files:
             if self.verbose:
                 print("load configuration file {:s}".format(file))
             try:

@@ -9,11 +9,11 @@ from bhtmeter.sensor.ble_sensor import BLESensor
 def main():
     parser = argparse.ArgumentParser(prog="bhtmeter")
     parser.add_argument(
-        "-c",
-        "--config",
-        metavar="<config file>",
-        help="configuration file",
-        action="append",
+        'config_files',
+        metavar="<config_toml>",
+        type=str,
+        nargs='+',
+        help="configuration files",
     )
     parser.add_argument("-v", "--verbose", help="increase output vervbosity", action="store_true")
     parser.add_argument(
@@ -43,8 +43,6 @@ def main():
     )
     args = parser.parse_args()
 
-    if not args.config:
-        raise ValueError("no configuration file specified")
     config = Config(args)
     if not config.load():
         exit
