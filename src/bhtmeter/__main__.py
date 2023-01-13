@@ -48,16 +48,16 @@ def main():
         exit
     config.parse()
 
-    BLESensor.scan_sensors(args)
     send_data = {}
+    BLESensor.scan_sensors(args)
     for sensor in Sensor.sensors():
         if not sensor.disabled:
             sensor.sense_data()
             sensor.gather_data(send_data)
 
-    for sensor in Sensor.sensors():
-        if not sensor.disabled:
-            if args.display:
+    if args.display:
+        for sensor in Sensor.sensors():
+            if not sensor.disabled:
                 sensor.display()
 
     for datastore in Datastore.datastores():

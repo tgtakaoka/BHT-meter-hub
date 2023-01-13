@@ -4,8 +4,12 @@
 #
 #    pip-compile pyproject.toml
 #
-bluepy==1.3.0
+async-timeout==4.0.2
+    # via bleak
+bleak==0.19.5
     # via python-bhtmeter (pyproject.toml)
+dbus-fast==1.84.0
+    # via bleak
 i2cdevice==0.0.7
     # via pimoroni-bme280
 pimoroni-bme280==0.1.1

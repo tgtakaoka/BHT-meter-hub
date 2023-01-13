@@ -16,7 +16,7 @@ classifiers = [
 ]
 keywords = ["barometer", "hygrometer", "thermometer", "bluetooth", "i2c"]
 dependencies = [
-    'bluepy',
+    'bleak',
     'pimoroni-bme280',
     'smbus2',
     'tomli; python_version < "3.11"',
@@ -69,4 +69,4 @@ profile = "black"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["bhtmeter*", "ambient"]
-exclude = ["ambient.examples"]
+exclude = ["ambient.examples*"]

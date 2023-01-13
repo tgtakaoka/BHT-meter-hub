@@ -1,16 +1,17 @@
-import binascii
 import time
 
 from .ble_sensor import BLESensor
 
 
 class SwitchbotPlug(BLESensor):
+    _WOAN_TECH = 0x0969
+
     @staticmethod
     def create(name: str, config: dict) -> "SwitchbotPlug":
         return SwitchbotPlug(name, config)
 
     def __init__(self, name: str, config: dict):
-        super().__init__(name, 255, config)
+        super().__init__(name, SwitchbotPlug._WOAN_TECH, config)
         data = config["data"]
         self._p = data.get("power", None)
 
@@ -18,16 +19,15 @@ class SwitchbotPlug(BLESensor):
     def power(self):
         return self.current_data.get("p", 0)
 
-    def decode(self, payload: str) -> None:
+    def decode(self, payload: bytearray) -> None:
         epoch_milli = int(time.time() * 1000)
-        manif = binascii.unhexlify(payload[18:])
-        state = bool(manif[0] & 0b10000000)
-        delay = bool(manif[1] & 0b00000001)
-        timer = bool(manif[1] & 0b00000010)
-        sync = bool(manif[1] & 0b00000100)
-        wifi = manif[2]
-        overload = bool(manif[3] & 0b10000000)
-        power = ((manif[3] & 0b01111111) * 256 + manif[4]) / 10.0
+        state = bool(payload[7] & 0b10000000)
+        delay = bool(payload[8] & 0b00000001)
+        timer = bool(payload[8] & 0b00000010)
+        sync = bool(payload[8] & 0b00000100)
+        wifi = payload[9]
+        overload = bool(payload[10] & 0b10000000)
+        power = ((payload[10] & 0b01111111) * 256 + payload[11]) / 10.0
         self.current_data = {
             "milli": epoch_milli,
             "state": state,

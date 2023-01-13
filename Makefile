@@ -1,8 +1,6 @@
 PYTHON = python3
 VENV ?= $(if $(VIRTUAL_ENV),$(notdir $(VIRTUAL_ENV)),.venv)
 
-BLUEPY_CAP = 'cap_net_raw,cap_net_admin+eip'
-
 help:
 	@echo "---- for developers"
 	@test -z "$(VIRTUAL_ENV)" || return 0 && \
@@ -31,7 +29,6 @@ delete_venv: not_in_venv
 
 development: in_venv
 	$(PYTHON) -m pip install -e .[dev]
-	sudo setcap $(BLUEPY_CAP) $$(find $(VENV) -name bluepy-helper)
 
 test: in_venv
 	$(PYTHON) -m pytest

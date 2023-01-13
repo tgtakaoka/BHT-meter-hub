@@ -1,65 +1,70 @@
+import asyncio
 import time
 
-from bluepy import btle
+from bleak import BleakScanner
+from bleak.backends.device import BLEDevice
+from bleak.backends.scanner import AdvertisementData
 
 from . import Sensor
 
 
-class ScanDelegate(btle.DefaultDelegate):
-    def __init__(self, sensors: list, args):
-        super().__init__()
-        self.data = {}
-        self._args = args
-        self._sensors = {}
-        for sensor in sensors:
-            if isinstance(sensor, BLESensor) and not sensor.disabled:
-                self._sensors[sensor.macaddr] = sensor
-
-    @property
-    def sensors(self) -> dict:
-        return self._sensors
-
-    def handleDiscovery(self, dev, isNewDev, isNewData):
-        if dev.addr in self._sensors:
-            sensor = self._sensors[dev.addr]
-            scanData = dev.getScanData()
-            for (adtype, desc, payload) in scanData:
-                if adtype == sensor.addr_type:
-                    if sensor.verbose:
-                        sensor.sense_message()
-                    sensor.decode(payload)
-        elif self._args.verbose:
-            print(".", end="", flush=True)
-
-
 class BLESensor(Sensor):
+    _BLE_SENSORS = {}
+    _ARGS = None
+    _SCANNING = {}
+    _DOTS = 0
+
+    @staticmethod
+    def clear_dots():
+        if BLESensor._DOTS > 0:
+            print()
+            BLESensor._DOTS = 0
+
+    @staticmethod
+    def print_dot():
+        print(".", end="", flush=True)
+        BLESensor._DOTS += 1
+
     @staticmethod
     def scan_sensors(args):
-        delegate = ScanDelegate(Sensor.sensors(), args)
-        if args.verbose:
-            for macaddr in delegate.sensors:
-                sensor = delegate.sensors[macaddr]
+        BLESensor._ARGS = args
+        BLESensor._SCANNING = {}
+        for macaddr, sensor in BLESensor._BLE_SENSORS.items():
+            BLESensor._SCANNING[macaddr] = sensor
+            if args.verbose:
                 print(
                     "scan BLE {:s} {:s} ({:s})".format(macaddr, sensor.name, sensor.sensor_class)
                 )
-        if not args.sense:
-            return
-        scanner = btle.Scanner().withDelegate(delegate)
-        for i in range(5):
-            try:
-                scanner.scan(args.ble_timeout)
-            except btle.BTLEException as e:
-                if args.verbose:
-                    print(f"ERROR: BTLE Exception: retry{i+1}")
-                    print(f"ERROR:   type: {type(e)}")
-                    print(f"ERRPR:   args: {e.args}")
-                time.sleep(5)
-            else:
-                break
+        BLESensor.clear_dots()
+        asyncio.run(BLESensor._scan_devices())
         if args.verbose:
             print()
 
-    def __init__(self, name: str, addr_type: int, config: dict):
+    @staticmethod
+    def _device_found(device: BLEDevice, adv_data: AdvertisementData) -> None:
+        sensor = BLESensor._SCANNING.get(device.address, None)
+        if sensor:
+            if sensor.verbose:
+                BLESensor.clear_dots()
+                sensor.sense_message()
+            manif_data = adv_data.manufacturer_data
+            if sensor.manifacture_id in manif_data:
+                payload = manif_data[sensor.manifacture_id]
+                sensor.decode(payload)
+                del BLESensor._SCANNING[device.address]
+        elif BLESensor._ARGS.verbose:
+            BLESensor.print_dot()
+
+    @staticmethod
+    async def _scan_devices() -> None:
+        scanner = BleakScanner(detection_callback=BLESensor._device_found)
+        timeout = time.time() + BLESensor._ARGS.ble_timeout
+        while time.time() < timeout and len(BLESensor._SCANNING) > 0:
+            await scanner.start()
+            await asyncio.sleep(1)
+            await scanner.stop()
+
+    def __init__(self, name: str, manif_id: int, config: dict):
         super().__init__(name, config)
         ble = config.get("ble", None)
         if type(ble) != dict:
@@ -67,16 +72,18 @@ class BLESensor(Sensor):
         macaddr = ble.get("macaddr", ble)
         if type(macaddr) != str:
             raise ValueError("sensor.{:s}.ble must have macaddr".format(name))
-        self._macaddr = macaddr.lower()
-        self._addr_type = addr_type
+        self._macaddr = macaddr.upper()
+        self._manif_id = manif_id
+        if not self.disabled:
+            BLESensor._BLE_SENSORS[self._macaddr] = self
 
     @property
     def macaddr(self) -> str:
         return self._macaddr
 
     @property
-    def addr_type(self) -> int:
-        return self._addr_type
+    def manifacture_id(self) -> int:
+        return self._manif_id
 
-    def decode(self, payload: str) -> None:
+    def decode(self, payload: bytearray) -> None:
         pass
