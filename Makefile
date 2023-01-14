@@ -1,3 +1,5 @@
+# Makefile for convenience
+
 PYTHON = python3
 VENV ?= $(if $(VIRTUAL_ENV),$(notdir $(VIRTUAL_ENV)),.venv)
 
@@ -7,10 +9,12 @@ help:
 	 echo "make create_venv      create python virtual environment VENV (default $(VENV))"
 	@test -n "$(VIRTUAL_ENV)" || return 0 && \
 	 echo "make delete_venv      delete python virtual environment $(VENV)"
-	@echo "make development      install this package to $(VENV) for development"
+	@echo "make prep-dev         install packages to $(VENV) for developing"
+	@echo "make prep-test        install packages to $(VENV) for testing"
 	@echo "make test             run unit test"
-	@echo "---- for maintainers"
 	@echo "make clean            clean backaups and caches"
+	@echo "---- for maintainers"
+	@echo "make prep-dist        install packages to $(VENV) for distributing"
 	@echo "make dist             create distribution"
 	@echo "make distclean        clean distribution artifacts"
 
@@ -27,8 +31,14 @@ create_venv: not_in_venv
 delete_venv: not_in_venv
 	-rm -rf $(VENV)
 
-development: in_venv
+prep-dev: in_venv
 	$(PYTHON) -m pip install -e .[dev]
+
+prep-test: in_venv
+	$(PYTHON) -m pip install -e .[test]
+
+prep-dist: in_venv
+	$(PYTHON) -m pip install -e .[dist]
 
 test: in_venv
 	$(PYTHON) -m pytest
@@ -57,8 +67,8 @@ distclean: in_venv clean
 	find . -name '*.egg-info' | xargs rm -rf
 	-rm -rf dist build $(VENV)
 
-.PHONY: help in_venv not_in_env create_venv delete_venv
-.PHONY: development test formatting test-publish publish clean distclean
+.PHONY: help in_venv not_in_env create_venv delete_venv prep-dev prep-test prep-dist
+.PHONY: test formatting test-publish publish clean distclean
 
 # Local Variables:
 # mode: makefile-gmake
