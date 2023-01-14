@@ -18,6 +18,7 @@ keywords = ["barometer", "hygrometer", "thermometer", "bluetooth", "i2c"]
 dependencies = [
     'bleak',
     'pimoroni-bme280',
+    'requests', # for AmbientDatastore
     'smbus2',
     'tomli; python_version < "3.11"',
 ]

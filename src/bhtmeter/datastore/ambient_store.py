@@ -1,4 +1,4 @@
-import ambient
+from ambient.ambient import Ambient
 
 from . import Datastore
 
@@ -36,5 +36,5 @@ class AmbientStore(Datastore):
             print("   {:s}".format(str(data)))
         if not self.do_store:
             return
-        am = ambient.Ambient(self._channel_id, self._write_key)
+        am = Ambient(self._channel_id, self._write_key)
         am.send(data)
