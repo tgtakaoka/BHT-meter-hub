@@ -1,0 +1,29 @@
+[datastore.ambient_location-a]
+channel.id = 1234
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
+
+[datastore.ambient_location-b]
+channel.id = 5678
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
+
+[datastore.ambient_meters]
+channel.id = 9012
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
+
+[datastore.alternate_meters]
+channel.id = 1235
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
+
+[datastore.alternate_location-b]
+channel.id = 5679
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
+
+[datastore.alternate_location-a]
+channel.id = 9013
+channel.read_key = "XXXXXXXXXXXXXXXX"
+channel.write_key = "XXXXXXXXXXXXXXXX"
