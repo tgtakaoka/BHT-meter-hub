@@ -20,7 +20,7 @@ idna==3.4
     # via requests
 pimoroni-bme280==0.1.1
     # via python-bhtmeter (pyproject.toml)
-requests==2.28.2
+requests==2.31.0
     # via python-bhtmeter (pyproject.toml)
 smbus2==0.4.2
     # via python-bhtmeter (pyproject.toml)
