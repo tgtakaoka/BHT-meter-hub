@@ -26,5 +26,5 @@ smbus2==0.4.2
     # via python-bhtmeter (pyproject.toml)
 tomli==2.0.1 ; python_version < "3.11"
     # via python-bhtmeter (pyproject.toml)
-urllib3==1.26.14
+urllib3==1.26.17
     # via requests
