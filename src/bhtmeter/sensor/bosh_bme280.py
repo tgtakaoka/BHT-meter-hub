@@ -14,13 +14,13 @@ class BoshBME280(Sensor):
     @staticmethod
     def create(name: str, config: dict) -> "BoshBME280":
         i2c = config.get("i2c", None)
-        if type(i2c) != dict:
+        if type(i2c) is not dict:
             raise ValueError("sensor.{:s} must have i2c table".format(name))
         i2c_bus = i2c.get("bus", i2c)
-        if type(i2c_bus) != int:
+        if type(i2c_bus) is not int:
             raise ValueError("sensor.{:s}.i2c must have bus number".format(name))
         i2c_addr = i2c.get("address", None)
-        if type(i2c_addr) != int:
+        if type(i2c_addr) is not int:
             raise ValueError("sensor.{:s}.i2c must have address".format(name))
         return BoshBME280(name, i2c_bus, i2c_addr, config)
 

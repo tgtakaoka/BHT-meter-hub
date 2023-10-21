@@ -6,13 +6,13 @@ def merge_toml(dict1: dict, dict2: dict) -> dict:
             dict3.update({k1: v1})
             continue
         v2 = dict2.pop(k1)
-        if type(v1) == dict and type(v2) == dict:
+        if type(v1) is dict and type(v2) is dict:
             v1 = merge_toml(v1, v2)
-        elif type(v1) == list and type(v2) == list:
+        elif type(v1) is list and type(v2) is list:
             v1.extend(v2)
-        elif type(v1) == list:
+        elif type(v1) is list:
             v1.append(v2)
-        elif type(v2) == list:
+        elif type(v2) is list:
             v1 = [v1]
             v1.extend(v2)
         elif v1 == v2:

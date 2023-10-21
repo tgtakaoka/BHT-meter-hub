@@ -12,7 +12,7 @@ class Sensor(object):
         sensor_class = config.get("class", None)
         if not sensor_class:
             raise ValueError("sensor.{:s} has no class defined".format(name))
-        if type(sensor_class) != str:
+        if type(sensor_class) is not str:
             raise ValueError("sensor.{:s}.class must be string".format(name))
             return None
         try:

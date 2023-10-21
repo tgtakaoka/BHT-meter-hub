@@ -7,13 +7,13 @@ class AmbientStore(Datastore):
     @staticmethod
     def create(name: str, config: dict) -> "AmbientStore":
         channel = config.get("channel", None)
-        if type(channel) != dict:
+        if type(channel) is not dict:
             raise ValueError("datastore.{:s} must have channel table".format(name))
         channel_id = channel.get("id", None)
-        if type(channel_id) != int:
+        if type(channel_id) is not int:
             raise ValueError("datastore.{:s}.channel must have id number".format(name))
         write_key = channel.get("write_key", None)
-        if type(write_key) != str:
+        if type(write_key) is not str:
             raise ValueError("datastore.{:s}.channel must have write_key".format(name))
         return AmbientStore(name, channel_id, write_key, config)
 

@@ -67,10 +67,10 @@ class BLESensor(Sensor):
     def __init__(self, name: str, manif_id: int, config: dict):
         super().__init__(name, config)
         ble = config.get("ble", None)
-        if type(ble) != dict:
+        if type(ble) is not dict:
             raise ValueError("sensor.{:s} must have ble table".format(name))
         macaddr = ble.get("macaddr", ble)
-        if type(macaddr) != str:
+        if type(macaddr) is not str:
             raise ValueError("sensor.{:s}.ble must have macaddr".format(name))
         self._macaddr = macaddr.upper()
         self._manif_id = manif_id
