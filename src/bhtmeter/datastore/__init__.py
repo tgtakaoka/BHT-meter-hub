@@ -14,7 +14,6 @@ class Datastore(object):
             raise ValueError("datastore.{:s} has no class defined".format(name))
         if type(datastore_class) is not str:
             raise ValueError("datastore.{:s}.class must be string".format(name))
-            return None
         try:
             import_path = "bhtmeter.datastore." + snake_case(datastore_class)
             module = import_module(import_path)

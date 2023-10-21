@@ -9,6 +9,7 @@ help:
 	 echo "make create_venv      create python virtual environment VENV (default $(VENV))"
 	@test -n "$(VIRTUAL_ENV)" || return 0 && \
 	 echo "make delete_venv      delete python virtual environment $(VENV)"
+	@echo "make install          install to $(VENV) for using"
 	@echo "make prep-dev         install packages to $(VENV) for developing"
 	@echo "make prep-test        install packages to $(VENV) for testing"
 	@echo "make test             run unit test"
@@ -31,6 +32,9 @@ create_venv: not_in_venv
 delete_venv: not_in_venv
 	-rm -rf $(VENV)
 
+install: in_venv ambient
+	$(PYTHON) -m pip install -e .
+
 prep-dev: in_venv
 	$(PYTHON) -m pip install -e .[dev]
 
@@ -51,6 +55,9 @@ formatting:
 requirements.txt: pyproject.toml
 	pip-compile pyproject.toml
 
+ambient: in_venv
+	$(PYTHON) -m pip install 'ambient@git+https://github.com/TakehikoShimojima/ambient-python-lib.git'
+
 dist: in_venv formatting requirements.txt
 	$(PYTHON) -m build
 	$(PYTHON) -m twine check dist/*
@@ -68,7 +75,7 @@ distclean: in_venv clean
 	-rm -rf dist build $(VENV)
 
 .PHONY: help in_venv not_in_env create_venv delete_venv prep-dev prep-test prep-dist
-.PHONY: test formatting test-publish publish clean distclean
+.PHONY: test formatting test-publish publish clean distclean install ambient
 
 # Local Variables:
 # mode: makefile-gmake

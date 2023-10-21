@@ -5,26 +5,18 @@
 #    pip-compile pyproject.toml
 #
 async-timeout==4.0.2
-    # via bleak
+    # via
+    #   bleak
+    #   dbus-fast
 bleak==0.19.5
     # via python-bhtmeter (pyproject.toml)
-certifi==2023.7.22
-    # via requests
-charset-normalizer==3.0.1
-    # via requests
 dbus-fast==1.84.0
     # via bleak
 i2cdevice==0.0.7
     # via pimoroni-bme280
-idna==3.4
-    # via requests
 pimoroni-bme280==0.1.1
-    # via python-bhtmeter (pyproject.toml)
-requests==2.31.0
     # via python-bhtmeter (pyproject.toml)
 smbus2==0.4.2
     # via python-bhtmeter (pyproject.toml)
 tomli==2.0.1 ; python_version < "3.11"
     # via python-bhtmeter (pyproject.toml)
-urllib3==1.26.18
-    # via requests

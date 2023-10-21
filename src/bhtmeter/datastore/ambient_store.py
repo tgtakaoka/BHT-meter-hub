@@ -1,4 +1,4 @@
-from ambient.ambient import Ambient
+from ambient import Ambient
 
 from . import Datastore
 

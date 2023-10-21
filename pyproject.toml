@@ -18,7 +18,6 @@ keywords = ["barometer", "hygrometer", "thermometer", "bluetooth", "i2c"]
 dependencies = [
     'bleak',
     'pimoroni-bme280',
-    'requests', # for AmbientDatastore
     'smbus2',
     'tomli; python_version < "3.11"',
 ]
@@ -74,5 +73,4 @@ profile = "black"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["bhtmeter*", "ambient"]
-exclude = ["ambient.examples*"]
+include = ["bhtmeter*"]

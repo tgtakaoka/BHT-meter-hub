@@ -1,3 +1,0 @@
-[submodule "src/ambient"]
-	path = src/ambient
-	url = https://github.com/AmbientDataInc/ambient-python-lib.git

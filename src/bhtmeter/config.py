@@ -1,6 +1,9 @@
 import sys
 
-import tomli
+try:
+    import tomli as tomllib
+except ImportError:
+    import tomllib
 
 from bhtmeter.datastore import Datastore
 from bhtmeter.sensor import Sensor
@@ -32,7 +35,7 @@ class Config(object):
                 print("load configuration file {:s}".format(file))
             try:
                 with open(file, "rb") as f:
-                    config = tomli.load(f)
+                    config = tomllib.load(f)
                     self._config = merge_toml(self._config, config)
             except OSError:
                 print("configuration file {:s} not found".format(file), file=sys.stderr)
