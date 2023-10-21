@@ -4,8 +4,12 @@
 #
 #    pip-compile pyproject.toml
 #
+ambient @ git+https://github.com/TakehikoShimojima/ambient-python-lib.git
+    # via python-bhtmeter (pyproject.toml)
 async-timeout==4.0.2
-    # via bleak
+    # via
+    #   bleak
+    #   dbus-fast
 bleak==0.19.5
     # via python-bhtmeter (pyproject.toml)
 certifi==2023.7.22
@@ -21,7 +25,9 @@ idna==3.4
 pimoroni-bme280==0.1.1
     # via python-bhtmeter (pyproject.toml)
 requests==2.31.0
-    # via python-bhtmeter (pyproject.toml)
+    # via
+    #   ambient
+    #   python-bhtmeter (pyproject.toml)
 smbus2==0.4.2
     # via python-bhtmeter (pyproject.toml)
 tomli==2.0.1 ; python_version < "3.11"

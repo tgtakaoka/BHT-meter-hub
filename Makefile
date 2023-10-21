@@ -9,6 +9,7 @@ help:
 	 echo "make create_venv      create python virtual environment VENV (default $(VENV))"
 	@test -n "$(VIRTUAL_ENV)" || return 0 && \
 	 echo "make delete_venv      delete python virtual environment $(VENV)"
+	@echo "make install          install to $(VENV) for using"
 	@echo "make prep-dev         install packages to $(VENV) for developing"
 	@echo "make prep-test        install packages to $(VENV) for testing"
 	@echo "make test             run unit test"
@@ -30,6 +31,9 @@ create_venv: not_in_venv
 
 delete_venv: not_in_venv
 	-rm -rf $(VENV)
+
+install: in_venv
+	$(PYTHON) -m pip install -e .
 
 prep-dev: in_venv
 	$(PYTHON) -m pip install -e .[dev]
