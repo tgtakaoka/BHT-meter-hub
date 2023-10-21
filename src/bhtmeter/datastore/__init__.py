@@ -12,7 +12,7 @@ class Datastore(object):
         datastore_class = config.get("class", None)
         if not datastore_class:
             raise ValueError("datastore.{:s} has no class defined".format(name))
-        if type(datastore_class) != str:
+        if type(datastore_class) is not str:
             raise ValueError("datastore.{:s}.class must be string".format(name))
         try:
             import_path = "bhtmeter.datastore." + snake_case(datastore_class)
@@ -44,7 +44,7 @@ class Datastore(object):
         lines = config.get("data", None)
         if not lines:
             raise ValueError("datastore.{:s} must have data table".format(name))
-        if type(lines) != dict:
+        if type(lines) is not dict:
             raise ValueError("datastore.{:s}.data must be table".format(name))
         for tag in lines:
             line = lines[tag]

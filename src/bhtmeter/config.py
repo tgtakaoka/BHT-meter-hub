@@ -49,7 +49,7 @@ class Config(object):
 
     def _parse_datastores(self) -> None:
         datastores = self._config.get("datastore")
-        if type(datastores) != dict:
+        if type(datastores) is not dict:
             raise ValueError("no datastore is defined")
         for name in datastores:
             config = datastores[name]
@@ -58,7 +58,7 @@ class Config(object):
 
     def _parse_sensors(self) -> None:
         sensors = self._config.get("sensor")
-        if type(sensors) != dict:
+        if type(sensors) is not dict:
             raise ValueError("no sensor is defined")
         for name in sensors:
             config = sensors[name]
